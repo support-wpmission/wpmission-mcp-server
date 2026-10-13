@@ -1,22 +1,3 @@
 
-{
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.support-wpmission/wpmission-mcp-server",
-  "title": "WPMission MCP Server",
-  "description": "MCP server providing information about WPMission, a platform for managing multiple WordPress websites. Live WordPress management actions are not yet available.",
-  "websiteUrl": "https://wpmission.com",
-  "repository": {
-    "url": "https://github.com/support-wpmission/wpmission-mcp-server",
-    "source": "github"
-  },
-  "version": "0.1.0",
-  "packages": [
-    {
-      "registryType": "oci",
-      "identifier": "ghcr.io/support-wpmission/wpmission-mcp-server:0.1.0",
-      "transport": {
-        "type": "stdio"
-      }
-    }
-  ]
-}
+"description": "MCP server providing WPMission product information for managing multiple WordPress websites.",
+
