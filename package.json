@@ -2,8 +2,23 @@
 {
   "name": "wpmission-mcp-server",
   "version": "0.1.0",
-  "description": "MCP server for WPMission WordPress management",
+  "mcpName": "io.github.support-wpmission/wpmission-mcp-server",
+  "description": "MCP server providing information about WPMission",
   "type": "module",
+  "bin": {
+    "wpmission-mcp-server": "./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/support-wpmission/wpmission-mcp-server.git"
+  },
+  "homepage": "https://wpmission.com",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node src/index.js"
   },
@@ -12,3 +27,5 @@
     "zod": "^4.0.0"
   }
 }
+
+
