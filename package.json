@@ -1,0 +1,14 @@
+
+{
+  "name": "wpmission-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for WPMission WordPress management",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.3.1",
+    "zod": "^4.0.0"
+  }
+}
