@@ -85,3 +85,15 @@ jobs:
             await client.close();
           }
           NODE
+
+      - name: Verify npm package
+        run: |
+          npm pack --dry-run
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const code = fs.readFileSync('src/index.js', 'utf8');
+            if (!code.startsWith('#!/usr/bin/env node')) {
+              throw new Error('Missing executable header');
+            }
+            console.log('npm package verification passed');
+          "
