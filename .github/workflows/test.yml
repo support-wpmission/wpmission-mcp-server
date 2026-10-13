@@ -1,0 +1,40 @@
+
+name: Test WPMission MCP
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Check JavaScript syntax
+        run: node --check src/index.js
+
+      - name: Check MCP SDK imports
+        run: |
+          node --input-type=module -e "
+            import { McpServer } from '@modelcontextprotocol/server';
+            import { serveStdio } from '@modelcontextprotocol/server/stdio';
+            import * as z from 'zod/v4';
+            if (!McpServer || !serveStdio || !z.object) {
+              throw new Error('Missing MCP dependencies');
+            }
+            console.log('MCP SDK imports successful');
+          "
