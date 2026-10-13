@@ -38,3 +38,50 @@ jobs:
             }
             console.log('MCP SDK imports successful');
           "
+
+      - name: Test real MCP connection
+        run: |
+          npm install --no-save @modelcontextprotocol/client@^2.3.1
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { Client } from '@modelcontextprotocol/client';
+          import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
+
+          const client = new Client({
+            name: 'wpmission-test',
+            version: '0.1.0'
+          });
+
+          const transport = new StdioClientTransport({
+            command: 'node',
+            args: ['src/index.js']
+          });
+
+          try {
+            await client.connect(transport);
+
+            const { tools } = await client.listTools();
+            assert.ok(
+              tools.some(t => t.name === 'wpmission_info'),
+              'WPMission tool not found'
+            );
+
+            const result = await client.callTool({
+              name: 'wpmission_info',
+              arguments: {}
+            });
+
+            assert.notEqual(result.isError, true);
+            assert.ok(
+              result.content.some(
+                c => c.type === 'text' &&
+                c.text.includes('WPMission')
+              ),
+              'Invalid tool response'
+            );
+
+            console.log('WPMission MCP test passed!');
+          } finally {
+            await client.close();
+          }
+          NODE
